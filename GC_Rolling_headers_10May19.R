@@ -7,8 +7,8 @@
 pacman::p_load(tidyverse)
 
 ### Read in the data tables that were exported from the GC
-fid <- read.delim("C:/Users/Owner/Dropbox/GC_Carey_Lab/GC_QAQC_CALCS/2019/FCR_dissolved_06May19_FID.txt", sep = "\t", header = T) ### Will need to change WD and File name each time
-tcd <- read.delim("C:/Users/Owner/Dropbox/GC_Carey_Lab/GC_QAQC_CALCS/2019/FCR_dissolved_06May19_TCD.txt", sep = "\t", header = T) ### Will need to change WD and File name each time
+fid <- read.csv("C:/Users/Owner/Dropbox/2019/GC_Carey_Lab/GC_QAQC_CALCS/FCR_dissolved_ebu_04June19_TCD.txt", sep = "\t", header = F) ### Will need to change WD and File name each time
+tcd <- read.csv("C:/Users/Owner/Dropbox/2019/GC_Carey_Lab/GC_QAQC_CALCS/FCR_dissolved_ebu_04June19_TCD.txt", sep = "\t", header = F) ### Will need to change WD and File name each time
 
 
 ### ROLLING QA CHARTS
@@ -21,10 +21,15 @@ ch4_air <- fid %>%
   rename(sample = V4) %>%
   rename(peak_area = V8)
 
-  ggplot(ch4_air, aes(x=date, y=as.factor(peak_area)))+
+add_row(ch4_air, date = ch4_air$date, sample = "air", peak_area = ch4_air$peak_area) %>% group_by(date)
+
+  ggplot(ch4_air, aes(x=date, y=as.numeric(as.character(peak_area))))+
   geom_point(size = 3)+
-  geom_hline(yintercept=4000)+
-  geom_hline(yintercept=50)
+  ylim(0,5000)+
+  ylab("Air Peak Area")+
+  geom_hline(yintercept=2000)+
+  geom_hline(yintercept=500)+
+  theme_bw()
 
   
 
