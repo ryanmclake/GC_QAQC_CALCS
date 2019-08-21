@@ -6,12 +6,10 @@
 ### Load in the packages we will need for these analyses
 pacman::p_load(tidyverse)
 
-### Read in the data tables that were exported from the GC
-<<<<<<< HEAD
-fid <- read.csv("C:/Users/Owner/Dropbox/2019/GC_Carey_Lab/GC_QAQC_CALCS/FCR_dissolved_ebu_04June19_TCD.txt", sep = "\t", header = F) ### Will need to change WD and File name each time
-=======
+
+
 fid <- read.csv("C:/Users/Owner/Dropbox/2019/GC_Carey_Lab/GC_QAQC_CALCS/FCR_dissolved_ebu_04June19_FID.txt", sep = "\t", header = F) ### Will need to change WD and File name each time
->>>>>>> f277278fd0ae251fac60f30bdae7935b68467334
+
 tcd <- read.csv("C:/Users/Owner/Dropbox/2019/GC_Carey_Lab/GC_QAQC_CALCS/FCR_dissolved_ebu_04June19_TCD.txt", sep = "\t", header = F) ### Will need to change WD and File name each time
 
 

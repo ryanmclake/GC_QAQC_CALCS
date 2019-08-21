@@ -3,7 +3,7 @@ pacman::p_load(tidyverse,
                see,
                gganimate)
 
-ghg_19 <- read_csv("C:/Users/Owner/Dropbox/2019/GC_Carey_Lab/GC_QAQC_CALCS/GC_TS_2019_Rready.csv")
+ghg_19 <- read_csv("./GC_TS_2019_Rready.csv")
 
 ### BVR
 #############################################################
@@ -57,17 +57,18 @@ names(bvr_ghg_19_all_plus_sd)[5] <- "ch4_sd"
 names(bvr_ghg_19_all_plus_sd)[6] <- "co2_sd"
 
 
+
 ### Make the TS plots of the gases in the Water Column ### 
 cols <- c("0.1" = "#4cff00", "3" = "#ff00cc", "6" = "#b300ff", "9" = "#ffb300", "11" = "#ff3300")
 
 pdf("BVR_GHG_CH4_2019_Depths.pdf", width=12, height=8)
-ggplot(bvr_ghg_19_all_plus_sd, aes(x = Date, y = ch4_umolL, group = as.factor(Depth_m), color = as.factor(Depth_m), fill = as.factor(Depth_m)))+
+ggplot(bvr_ghg_19_all_plus_sd, aes(x = Date, y = as.numeric(ch4_umolL), group = as.factor(Depth_m), color = as.factor(Depth_m), fill = as.factor(Depth_m)))+
   geom_line(lwd = 1.5)+
   geom_point(size = 4,pch = 21)+
   geom_errorbar(aes(ymin=ch4_umolL-ch4_sd, ymax=ch4_umolL+ch4_sd), width=5,
                 position=position_dodge(0))+
   scale_colour_manual(values = cols, aesthetics = c("color", "fill"))+
-  ylim(0,300)+
+  ylim(0,1000)+
   xlab("")+
   ylab(expression(umol/L~CH[4]))+
   theme_blackboard()+
@@ -86,7 +87,7 @@ ggplot(bvr_ghg_19_all_plus_sd, aes(x = Date, y = co2_umolL, group = as.factor(De
   geom_errorbar(aes(ymin=co2_umolL-co2_sd, ymax=co2_umolL+co2_sd), width=5,
                 position=position_dodge(0))+
   scale_colour_manual(values = cols, aesthetics = c("color", "fill"))+
-  ylim(0,500)+
+  ylim(0,1000)+
   xlab("")+
   ylab(expression(umol/L~CO[2]))+
   theme_blackboard()+
@@ -195,8 +196,12 @@ ggplot(fcr_ghg_19_all_plus_sd, aes(x = Date, y = ch4_umolL, group = as.factor(De
   geom_errorbar(aes(ymin=ch4_umolL-ch4_sd, ymax=ch4_umolL+ch4_sd), width=5,
                 position=position_dodge(0))+
   scale_colour_manual(values = cols_fcr, aesthetics = c("color", "fill"))+
-  ylim(0,10)+
+  ylim(0,30)+
   xlab("")+
+  geom_vline(xintercept = as.POSIXct("2019-06-03"))+
+  geom_vline(xintercept = 5)+
+  geom_vline(xintercept = 5)+
+  geom_vline(xintercept = 5)+
   ylab(expression(umol/L~CH[4]))+
   theme_blackboard()+
   theme(axis.text=element_text(size=25),
@@ -213,7 +218,7 @@ ggplot(fcr_ghg_19_all_inf_plus_sd, aes(x = Date, y = ch4_umolL, group = as.facto
   geom_errorbar(aes(ymin=ch4_umolL-ch4_sd, ymax=ch4_umolL+ch4_sd), width=5,
                 position=position_dodge(0))+
   scale_colour_manual(values = cols_fcr_inf, aesthetics = c("color", "fill"))+
-  ylim(0,10)+
+  ylim(0,15)+
   xlab("")+
   ylab(expression(umol/L~CH[4]))+
   theme_blackboard()+
@@ -231,7 +236,7 @@ ggplot(fcr_ghg_19_all_inf_plus_sd, aes(x = Date, y = co2_umolL, group = as.facto
   geom_errorbar(aes(ymin=co2_umolL-co2_sd, ymax=co2_umolL+co2_sd), width=5,
                 position=position_dodge(0))+
   scale_colour_manual(values = cols_fcr_inf, aesthetics = c("color", "fill"))+
-  ylim(0,500)+
+  ylim(0,700)+
   xlab("")+
   ylab(expression(umol/L~CO[2]))+
   theme_blackboard()+
@@ -250,7 +255,7 @@ ggplot(fcr_ghg_19_all_plus_sd, aes(x = Date, y = co2_umolL, group = as.factor(De
   geom_errorbar(aes(ymin=co2_umolL-co2_sd, ymax=co2_umolL+co2_sd), width=5,
                 position=position_dodge(0))+
   scale_colour_manual(values = cols_fcr, aesthetics = c("color", "fill"))+
-  ylim(0,500)+
+  ylim(0,700)+
   xlab("")+
   ylab(expression(umol/L~CO[2]))+
   theme_blackboard()+
